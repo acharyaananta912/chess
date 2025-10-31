@@ -8,7 +8,7 @@ def get_step_moves(self, position, directions, color):
                 jumps: Gives potential moving direction of chess piece. (list[tuple(int, int)])
                 color: Get information whether piece is Black or White. (str)
         Output:
-                moves: Possible moves for the chess piece.
+                moves: Possible moves for the chess piece. (list[tuple(int, int)])
                        Move may be invalid when King is in check.
     """
 
