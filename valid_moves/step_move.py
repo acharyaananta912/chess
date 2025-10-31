@@ -1,8 +1,7 @@
-def get_jump_moves(self, position, jumps, color):
+def get_step_moves(self, position, directions, color):
 
-    """ This function is very similar to linear_move.py.
-        Unlike it, this function does not continiously scan new position.
-        This can be applied to Knight which can have only 4 jump moves possible.
+    """ This function is same as jump_move.py.
+        But it does not jump like Knight or slide like Rook, Bishop, Queen
         
         Parameters:
                 position: Get current position of the chess piece. (tuple(int, int))
@@ -14,9 +13,9 @@ def get_jump_moves(self, position, jumps, color):
     """
 
     moves = [] # initialize a list for possible moves
-    x, y = position # this is the current position of the selected Knight
+    x, y = position # this is the current position of the King
 
-    for dx, dy in jumps: # gets (x, y) coordinates from the jumps
+    for dx, dy in directions: # gets (x, y) coordinates from the jumps
         new_pos = (x + dx, y + dy) # calculating possible moves
 
         if self.is_valid_position(new_pos):
@@ -24,5 +23,5 @@ def get_jump_moves(self, position, jumps, color):
 
             if piece is None or piece.color != color: # is selected piece and piece at new position empty or different?
                     moves.append(new_pos)
-                 
+
      return moves # return possible moves filtering out the positions where there is piece of same color
