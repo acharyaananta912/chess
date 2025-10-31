@@ -3,10 +3,6 @@ def get_linear_moves(self, position, directions, color):
     """ This function is for linear movement of chess pieces 
         (e.g. Queen, Rook, and Bishop). The move can be straight
         or diagonal depending on the directions argument.
-
-        It can also be jump moves for the Knight,
-        and ones-step move for King. It allows forward-backward moves.
-        Not applicable to Pawns.
         
         Parameters:
                 position: Get current position of the chess piece.
@@ -22,17 +18,17 @@ def get_linear_moves(self, position, directions, color):
     for dx, dy in directions: # gets (x, y) coordinates from the directions
         x, y = position # this is position of chess piece
 
-        while self.is_valid_position((x + dx, y + dy)):  # ******Discuss Later****
+        while self.is_valid_position((x + dx, y + dy)):  # This scans the positions continiously
             x += dx # calculating possible move
             y += dy
 
             piece = self.get_piece_at((x, y)) # info of piece at new calculated move
 
             if piece: # if there is piece go through condition otherwise add it as valid move
-                if piece.color.color != color: # is selected piece and piece at new position different?
+                if piece.color != color: # is selected piece and piece at new position different?
                     moves.append((x, y)) # the move is valid (possible capture move)
                 break
 
-            moves.append((x,y))
+            moves.append((x,y)) # this handles sliding nature of Rook, Queen and Bishop
      
      return moves # return possible moves filtering out the positions where there is piece of same color
