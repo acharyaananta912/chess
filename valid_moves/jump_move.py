@@ -19,7 +19,7 @@ def get_jump_moves(self, position, jumps, color):
     for dx, dy in jumps: # gets (x, y) coordinates from the jumps
         new_pos = (x + dx, y + dy) # calculating possible moves
 
-        if self.is_valid_position(new_pos):
+        if self._is_valid_position(new_pos):
             piece = self.get_piece_at(new_pos) # info of piece at new calculated move
 
             if piece is None or piece.color != color: # is selected piece and piece at new position empty or different?

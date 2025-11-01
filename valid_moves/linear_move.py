@@ -18,7 +18,7 @@ def get_linear_moves(self, position, directions, color):
     for dx, dy in directions: # gets (x, y) coordinates from the directions
         x, y = position # this is position of chess piece
 
-        while self.is_valid_position((x + dx, y + dy)):  # This scans the positions continiously
+        while self._is_valid_position((x + dx, y + dy)):  # This scans the positions continiously
             x += dx # calculating possible move
             y += dy
 
