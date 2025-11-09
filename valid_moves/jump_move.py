@@ -25,4 +25,4 @@ def get_jump_moves(self, position, jumps, color):
             if piece is None or piece.color != color: # is selected piece and piece at new position empty or different?
                     moves.append(new_pos)
                  
-     return moves # return possible moves filtering out the positions where there is piece of same color
+    return moves # return possible moves filtering out the positions where there is piece of same color

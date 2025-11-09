@@ -24,18 +24,18 @@ def get_castling_moves(self, position, color):
         not king
         or king.__class__.__name__ != "King"
         or king.color != color
-        or getattr(king, "has_moved", False)
+        or king.has_moved
         ):
 
         return moves                   # empty
 
     # Checking condition 2 for kingside castling (Has rook moved?)
-    kingside_rook = self.get_piece_at((7, y)) # find rook on kings side
+    rook = self.get_piece_at((7, y)) # find rook on kings side
     if (
-        kingside_rook
-        and kingside_rook.__class__.__name__ == "Rook"
-        and kingside_rook.color == color
-        and not getattr(kingside_rook, "has_moved", False)
+        rook
+        and rook.__class__.__name__ == "Rook"
+        and rook.color == color
+        and not rook.has_moved
         ):
        
         # Checking condition 2 (Are spaces empty?)
@@ -43,12 +43,12 @@ def get_castling_moves(self, position, color):
             moves.append((6, y))
 
     # Checking condition 1 for queenside castling (Has rook moved?)
-    queenside_rook = self.get_piece_at((0, y))
+    rook = self.get_piece_at((0, y))
     if (
-        queenside_rook 
-        and queenside_rook.__class__.__name__ == "Rook"
-        and queenside_rook.color == color
-        and not getattr(queenside_rook, "has_moved", False)
+        rook 
+        and rook.__class__.__name__ == "Rook"
+        and rook.color == color
+        and not rook.has_moved
         ):
     
         # Checking condition 2 (Are spaces empty?)

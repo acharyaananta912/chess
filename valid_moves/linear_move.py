@@ -31,4 +31,4 @@ def get_linear_moves(self, position, directions, color):
 
             moves.append((x,y)) # this handles sliding nature of Rook, Queen and Bishop
      
-     return moves # return possible moves filtering out the positions where there is piece of same color
+    return moves # return possible moves filtering out the positions where there is piece of same color
