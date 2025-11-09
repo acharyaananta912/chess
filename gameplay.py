@@ -27,6 +27,7 @@ class ChessBoard(ValidMoves):
         self.checkmate = Checkmate()
         self.stalemate = Stalemate()
         self.checked = Checked()
+        self.en_passant_target = None
 
 # ****************************************************************************
 
@@ -212,11 +213,59 @@ class ChessBoard(ValidMoves):
                 captured_piece.is_captured = False
             return False
 
+
+
+        # en-passant capture
+        if isinstance(piece, Pawn) and end_pos == self.en_passant_target:
+            x, y = end_pos
+            direction = -1 if piece.color == "white" else 1
+            captured_pos = (x, y + direction)
+            captured_pawn = self.get_piece_at(captured_pos)
+            if captured_pawn:
+                captured_pawn.is_captured = True
+
+
         # finalize move
         piece.move(end_pos)  # sets _has_moved = True
+
+        # en-passant target
+        self.en_passant_target = None
+        if isinstance(piece, Pawn):
+            sx, sy = start_pos
+            ex, ey = end_pos
+            if piece.color == "white" and sy == 1 and ey == 3:
+                self.en_passant_target = (ex, 2)
+            elif piece.color == "black" and sy == 6 and ey == 4:
+                self.en_passant_target = (ex, 5)
+
+
+        if isinstance(piece, Pawn): #Pawn Promotion
+            x, y = end_pos
+            if piece.color == "white" and y == 7:
+                self._promote_pawn_to_queen(piece)
+
+            elif piece.color == "black" and y == 0:
+                self._promote_pawn_to_queen(piece)
+
         self.turn = "black" if self.turn == "white" else "white"
         self.checked.check_both_kings(self)
         self._check_for_game_end()
         return True
+
+# **********************************************************************************
+    def _promote_pawn_to_queen(self, pawn):
+
+        """ This helps to promote the pawn to queen if the pawn
+        reaches the other end. """
+
+        px, py = pawn.position
+        color = pawn.color 
+
+        pawn.is_captured = True # pawn is removed
+
+        new_piece = Queen(color, (px, py))
+        self.pieces.append(new_piece)
+
+
 
 # ******************************** END *********************************************

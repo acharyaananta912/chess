@@ -39,6 +39,10 @@ def get_pawn_captures(self, position, color):
     direction = 1 if color == "white" else -1
     captures = []
     
+    # There are two possibility of capture
+    # 1. One step diagonal capture.
+    # 2. En Passant capture
+    
     for dx in (-1, 1):
 
         pos = (x + dx, y + direction)
@@ -48,4 +52,11 @@ def get_pawn_captures(self, position, color):
             if piece and piece.color != color:
                 if (pos[1] - y) * direction > 0:
                     captures.append(pos)
+
+    if self.en_passant_target:
+        ex, ey = self.en_passant_target
+
+        if abs(ex - x) == 1 and ey == y + direction:
+            captures.append((ex, ey))
+
     return captures
